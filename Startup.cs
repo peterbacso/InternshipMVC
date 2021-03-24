@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -40,6 +43,8 @@ namespace InternshipMvc
                 app.UseHsts();
             }
 
+            app.UseDefaultFiles();
+            UseStaticFilesFromImageFolder(app);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -50,6 +55,16 @@ namespace InternshipMvc
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+            });
+        }
+        private static void UseStaticFilesFromImageFolder(IApplicationBuilder app)
+        {
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string path = Path.Combine(currentDirectory, "images");
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(path),
+                RequestPath = new PathString("/images")
             });
         }
     }

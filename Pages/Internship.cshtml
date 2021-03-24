@@ -1,9 +1,10 @@
-<html>
-    <head>
-        <title>Internship</title>
-    </head>
-    <body>
-        <h1>Internship Landpage</h1>
+﻿@page
+@model InternshipModel
+@{
+    ViewData["Title"] = "Internship";
+}
+<h1>@ViewData["Title"]</h1>
+
         <p>Here is our classroom</p>
         <ul id="list">
             <li>Ale</li>
@@ -16,5 +17,3 @@
         <br />
         <img src="/images/steps.png" width="200px" />
         <script src="/js/index.js"></script>
-    </body>
-</html>

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace InternshipMvc.Pages
 {
-    public class InternshipModel : PageModel
+    public class PrivacyModel : PageModel
     {
-        private readonly ILogger<InternshipModel> _logger;
+        private readonly ILogger<PrivacyModel> _logger;
 
-        public InternshipModel(ILogger<InternshipModel> logger)
+        public PrivacyModel(ILogger<PrivacyModel> logger)
         {
             _logger = logger;
         }

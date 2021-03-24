@@ -44,7 +44,6 @@ namespace InternshipMvc
             }
 
             app.UseDefaultFiles();
-            //UseStaticFilesFromImageFolder(app);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -55,16 +54,6 @@ namespace InternshipMvc
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-            });
-        }
-        private static void UseStaticFilesFromImageFolder(IApplicationBuilder app)
-        {
-            string currentDirectory = Directory.GetCurrentDirectory();
-            string path = Path.Combine(currentDirectory, "images");
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(path),
-                RequestPath = new PathString("/images")
             });
         }
     }

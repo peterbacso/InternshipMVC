@@ -44,7 +44,7 @@ namespace InternshipMvc
             }
 
             app.UseDefaultFiles();
-            UseStaticFilesFromImageFolder(app);
+            //UseStaticFilesFromImageFolder(app);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

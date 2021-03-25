@@ -4,9 +4,20 @@ $(document).ready(function () {
     $("#add").click(function () {
         var newcomerName = $("#newcomer").val();
 
-        // Remember string interpolation
-        $("#list").append(`<li>${newcomerName}</li>`);
+        $.ajax({
+            url: `/Home/AddMember?member=${newcomerName}`,
+            success: function (data) {
+                // Remember string interpolation
+                $("#list").append(`<li>${data}</li>`);
 
+                $("#newcomer").val("");
+            },
+            error: function (data) {
+                alert(`Failed to add ${newcomerName}`);
+            },
+        });
+    })
+    $("#clear").click(function () {
         $("#newcomer").val("");
     })
 });

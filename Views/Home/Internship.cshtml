@@ -5,9 +5,17 @@
 
         <p>Here is our classroom</p>
         <ul id="list">
-            <li>Ale</li>
-            <li>Peter</li>
-            <li>Radu</li>
+            <li>Borys</li>
+            <li>Liova</li>
+            <li>Orest</li>
+            @for (var i = 0; i < Model.Members.Count; i++)
+            {
+                var member = Model.Members[i];
+
+            <li class="member">
+                @member
+            </li>
+            }
         </ul>
         <input id="newcomer" title="Name" type="text" />
         <button id="add">Add new commer</button>

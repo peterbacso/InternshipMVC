@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using InternMVC.Models;
+using RazorMvc.Models;
 
 namespace InternMVC.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly InternshipClass _internshipClass;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
         {
+            _internshipClass = new InternshipClass();
             _logger = logger;
         }
 
@@ -30,7 +33,7 @@ namespace InternMVC.Controllers
 
         public IActionResult Internship()
         {
-            return View();
+            return View(_internshipClass);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

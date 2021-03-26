@@ -66,7 +66,6 @@ $(document).ready(function () {
             method: 'PUT',
             url: `/home/EditMember?index=${index}&name=${newName}`,
             success: function (data) {
-                console.log($("#list").closest('li'))
                 console.log('okkk')
             },
             error: function (data) {

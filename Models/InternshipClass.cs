@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace RazorMvc.Models
+namespace InternshipMVC.Models
 {
     public class InternshipClass
     {

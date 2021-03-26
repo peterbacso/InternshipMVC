@@ -5,19 +5,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using InternMVC.Models;
-using RazorMvc.Models;
+using InternshipMVC.Models;
+using InternshipMVC.Services;
 
 namespace InternMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly InternshipClass _internshipClass;
+        private readonly InternshipService intershipService;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, InternshipService intershipService)
         {
-            _internshipClass = new InternshipClass();
+            this.intershipService = intershipService;
             _logger = logger;
         }
 
@@ -33,20 +33,19 @@ namespace InternMVC.Controllers
 
         public IActionResult Internship()
         {
-            return View(_internshipClass);
+            return View(intershipService.GetClass());
         }
 
         [HttpDelete]
         public void RemoveMember(int index)
         {
-            _internshipClass.Members.RemoveAt(index);
+            intershipService.RemoveMember(index);
         }
 
         [HttpGet]
         public string AddMember(string member)
         {
-            _internshipClass.Members.Add(member);
-            return member;
+            return intershipService.AddMember(member);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

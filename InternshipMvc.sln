@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternshipMvc.Tests", "InternshipMvc.Tests\InternshipMvc.Tests.csproj", "{2F1E8680-0AD8-4F5C-8CEE-D1436740BD31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{D1541134-266C-4E88-8448-95AFF2F26082}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1541134-266C-4E88-8448-95AFF2F26082}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1541134-266C-4E88-8448-95AFF2F26082}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F1E8680-0AD8-4F5C-8CEE-D1436740BD31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F1E8680-0AD8-4F5C-8CEE-D1436740BD31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F1E8680-0AD8-4F5C-8CEE-D1436740BD31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F1E8680-0AD8-4F5C-8CEE-D1436740BD31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

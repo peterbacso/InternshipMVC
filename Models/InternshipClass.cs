@@ -4,7 +4,7 @@ namespace InternshipMVC.Models
 {
     public class InternshipClass
     {
-        private readonly List<string> _members;
+        private List<string> _members;
 
         public InternshipClass()
         {

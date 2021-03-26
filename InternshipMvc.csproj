@@ -5,7 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="InternshipMvc.Tests\**" />
+    <Content Remove="InternshipMvc.Tests\**" />
+    <EmbeddedResource Remove="InternshipMvc.Tests\**" />
     <None Remove="*.log" />
+    <None Remove="InternshipMvc.Tests\**" />
   </ItemGroup>
   
   <ItemGroup>

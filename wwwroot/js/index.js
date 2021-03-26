@@ -10,7 +10,9 @@ $(document).ready(function () {
                 // Remember string interpolation
                 $("#list").append(`
                     <li class="member">
-                        <span class="name">${data}</span><span class="fa fa-pencil"></span><i class="delete fa fa-remove"></i>
+                        <span class="name">${data}</span>
+                        <span class="delete fa fa-remove"></span>
+                        <i class="startEdit fa fa-pencil" data-toggle="modal" data-target="#editClassmate"></i>
                     </li>
                 `);
 
@@ -25,7 +27,7 @@ $(document).ready(function () {
         $("#newcomer").val("");
     })
     $("#list").on('click', '.delete', function () {
-        var parent = $(this).parent('li');
+        var parent = $(this).closest('li');
         var index = parent.index();
 
         $.ajax({
@@ -36,6 +38,39 @@ $(document).ready(function () {
             },
             error: function (data) {
                 alert(`failed to remove ${index}`);
+            },
+        });
+
+    })
+    $("#list").on("click", ".startEdit", function () {
+        var targetMemberTag = $(this).closest('li');
+        var index = targetMemberTag.index();
+        var currentName = targetMemberTag.find(".name").text();
+        $('#editClassmate').attr("memberIndex", index);
+        $('#classmateName').val(currentName);
+    })
+
+    $("#editClassmate").on("click", "#submit", function () {
+        console.log('submit changes to server');
+    })
+
+    $("#editClassmate").on("click", "#cancel", function () {
+        console.log('cancel changes');
+    })
+    $("#editClassmate").on('click', '#submit', function () {
+        var newName = $('#classmateName').val();
+        var index = $('#editClassmate').attr("memberIndex");
+        console.log(index);
+
+        $.ajax({
+            method: 'PUT',
+            url: `/home/EditMember?index=${index}&name=${newName}`,
+            success: function (data) {
+                console.log($("#list").closest('li'))
+                console.log('okkk')
+            },
+            error: function (data) {
+                alert(`failed to edit ${index}`);
             },
         });
 

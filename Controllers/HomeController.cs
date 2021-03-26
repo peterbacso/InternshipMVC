@@ -48,6 +48,12 @@ namespace InternMVC.Controllers
             return intershipService.AddMember(member);
         }
 
+        [HttpPut]
+        public void EditMember(int index, string name)
+        {
+            intershipService.EditMember(index, name);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

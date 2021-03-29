@@ -1,11 +1,11 @@
-﻿using InternshipMVC.Models;
-using System.Linq;
+﻿using System.Linq;
+using InternshipMVC.Models;
 
 namespace InternshipMVC.Services
 {
     public class InternshipService
     {
-        private InternshipClass _internshipClass = new();
+        private InternshipClass _internshipClass = new ();
 
         public void RemoveMember(int index)
         {

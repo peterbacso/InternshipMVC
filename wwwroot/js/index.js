@@ -60,13 +60,12 @@ $(document).ready(function () {
     $("#editClassmate").on('click', '#submit', function () {
         var newName = $('#classmateName').val();
         var index = $('#editClassmate').attr("memberIndex");
-        console.log(index);
 
         $.ajax({
             method: 'PUT',
             url: `/home/EditMember?index=${index}&name=${newName}`,
             success: function (data) {
-                console.log('okkk')
+                $('.name').get(index).replaceWith(newName);
             },
             error: function (data) {
                 alert(`failed to edit ${index}`);

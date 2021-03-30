@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Weather";
+}
+@section styles {
+    <!-- Read about this here https://fontawesome.com/icons?d=gallery&p=2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+}
+@section scripts {
+    <script type="text/javascript" src="~/js/index.js"></script>
+}
+
+<h1>@ViewData["Title"]</h1>
+<p>Tomorrow</p>
+
+<div class="weather">
+    <p>Date: <div id="date">29.03.2021 11:34</div></p>
+    <p>Temperature: <div id="temperature">14 C</div></p>
+    <p>Summary: <div id="summary">chill</div></p>
+</div>

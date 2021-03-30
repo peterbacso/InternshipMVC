@@ -36,6 +36,11 @@ namespace InternMVC.Controllers
             return View(intershipService.GetClass());
         }
 
+        public IActionResult Weather()
+        {
+            return View();
+        }
+
         [HttpDelete]
         public void RemoveMember(int index)
         {

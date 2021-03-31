@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using InternshipMvc.Utilities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -19,47 +20,46 @@ namespace InternshipMvc.WebAPI.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IConfiguration configuration;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            this.configuration = configuration;
         }
 
         /// <summary>
         /// Getting Weather Forecast for 5 days.
         /// </summary>
         /// <returns>
-        /// weatherForecast.
+        /// Enumerable of weatherForecast objects.
         /// </returns>
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureK = rng.Next(-20, 55) + 273.15,
-                Summary = Summaries[rng.Next(Summaries.Length)],
-            })
-            .ToArray();
+            var lat = double.Parse(configuration["WeatherForecast:Latitude"]);
+            var lon = double.Parse(configuration["WeatherForecast:Longtitude"]);
+            var apiKey = configuration["WeatherForecast:ApiKey"];
+            var weatherForecasts = FetchWeatherForecasts(lat, lon, apiKey);
+
+            return weatherForecasts.GetRange(1, 5);
         }
 
-        public IList<WeatherForecast> FetchWeatherForecasts(double lat, double lon, string apiKey)
+        public List<WeatherForecast> FetchWeatherForecasts(double lat, double lon, string apiKey)
         {
             var client = new RestClient($"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=hourly,minutely&appid={apiKey}");
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             IRestResponse response = client.Execute(request);
-            Console.WriteLine(response.Content);
+
             return ConvertResponseToWeatherForecastList(response.Content);
         }
 
-        private IList<WeatherForecast> ConvertResponseToWeatherForecastList(string content)
+        public List<WeatherForecast> ConvertResponseToWeatherForecastList(string content)
         {
             var json = JObject.Parse(content);
             var dailyArray = json["daily"];
-            Console.WriteLine(dailyArray);
-            IList<WeatherForecast> weatherForecasts = new List<WeatherForecast>();
+            var weatherForecasts = new List<WeatherForecast>();
             foreach (var item in dailyArray)
             {
                 WeatherForecast obj = new WeatherForecast();

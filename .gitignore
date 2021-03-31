@@ -447,10 +447,7 @@ $RECYCLE.BIN/
 !.vscode/launch.json
 !.vscode/extensions.json
 
-/LandPage2.xml
 *.orig
 /out
-/RazorMvc.xml
-/.vs/
-*.json
 *.xml
+*.bak

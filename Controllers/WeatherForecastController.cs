@@ -62,18 +62,12 @@ namespace InternshipMvc.WebAPI.Controllers
             var weatherForecasts = new List<WeatherForecast>();
             foreach (var item in dailyArray)
             {
-                WeatherForecast obj = new WeatherForecast();
-                obj.Date = DateTimeConverter.ConvertEpochToDateTime(item.Value<long>("dt"));
-                obj.TemperatureK = item["temp"].Value<double>("day");
-                obj.Summary = item["weather"][0].Value<string>("main");
-                try
+                weatherForecasts.Add(new WeatherForecast
                 {
-                    weatherForecasts.Add(obj);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
+                    Date = DateTimeConverter.ConvertEpochToDateTime(item.Value<long>("dt")),
+                    TemperatureK = item["temp"].Value<double>("day"),
+                    Summary = item["weather"][0].Value<string>("main"),
+                });
             }
 
             return weatherForecasts;

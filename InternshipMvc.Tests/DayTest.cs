@@ -66,7 +66,7 @@ namespace InternshipMvc.Tests
         private string GetStreamContent()
         {
             var assembly = this.GetType().Assembly;
-            var stream = assembly.GetManifestResourceStream("InternshipMvc.Tests.weatherForecast.json");
+            using var stream = assembly.GetManifestResourceStream("InternshipMvc.Tests.weatherForecast.json");
             StreamReader streamReader = new StreamReader(stream);
 
             var streamContent = "";
@@ -76,7 +76,6 @@ namespace InternshipMvc.Tests
                 streamContent += streamReader.ReadLine();
             }
 
-            streamReader.Close();
             return streamContent;
         }
 

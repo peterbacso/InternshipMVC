@@ -451,5 +451,6 @@ $RECYCLE.BIN/
 /out
 *.xml
 *.bak
-/bin
-/obj
+/bin/
+.cache
+/obj/

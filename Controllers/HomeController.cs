@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using InternshipMvc.Data;
 using InternshipMVC.Models;
 using InternshipMVC.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -12,18 +13,21 @@ namespace InternMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly InternshipService intershipService;
         private readonly ILogger<HomeController> _logger;
+        private readonly InternshipService intershipService;
+        private readonly InternDbContext db;
 
-        public HomeController(ILogger<HomeController> logger, InternshipService intershipService)
+        public HomeController(ILogger<HomeController> logger, InternshipService intershipService, InternDbContext db)
         {
-            this.intershipService = intershipService;
             _logger = logger;
+            this.intershipService = intershipService;
+            this.db = db;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var interns = db.Interns;
+            return View(interns);
         }
 
         public IActionResult Privacy()

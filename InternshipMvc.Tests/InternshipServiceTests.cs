@@ -1,4 +1,6 @@
+using InternshipMvc.Models;
 using InternshipMvc.Services;
+using System;
 using System.Linq;
 using Xunit;
 
@@ -25,7 +27,7 @@ namespace InternshipMvc.Tests
             var intershipService = new InternshipService();
 
             // Act
-            intershipService.AddMember("Marko");
+            intershipService.AddMember(new Intern { Name = "Borys", RegistrationDateTime = DateTime.Parse("2021-04-01") });
 
             // Assert
             Assert.Equal(4, intershipService.GetMembers().Count);

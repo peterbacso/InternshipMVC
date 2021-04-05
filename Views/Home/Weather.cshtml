@@ -1,14 +1,45 @@
-﻿@{
-    ViewData["Title"] = "Weather";
-}
-@section styles {
-    <!-- Read about this here https://fontawesome.com/icons?d=gallery&p=2 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-}
-@section scripts {
-    <script type="text/javascript" src="~/js/index.js"></script>
-}
+﻿@model IList<InternshipMvc.Models.Intern>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Internship Landpage</title>
+</head>
+<body>
+    @section styles {
+        <!-- Read about this here https://fontawesome.com/icons?d=gallery&p=2 -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    }
+    @section scripts {
+        <script type="text/javascript" src="~/js/index.js"></script>
+    }
+    @section modalWindows {
+        <!-- Modal -->
+        <div class="modal fade" id="editClassmate" role="dialog">
+            <div class="modal-dialog">
 
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit Classmate</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Name
+                            <input id="classmateName" title="Name" type="text">
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="submit" type="button" class="btn" data-dismiss="modal">Submit</button>
+                        <button id="cancel" type="button" class="btn" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+    
 <h1>@ViewData["Title"]</h1>
 <p>Tomorrow</p>
 
@@ -17,3 +48,43 @@
     <p>Temperature: <div id="temperature">temp</div></p>
     <p>Summary: <div id="summary">summary</div></p>
 </div>
+    <h1>Internship Landpage</h1>
+    <p>Here is our classroom</p>
+
+    <ul id="list">
+        @for (var i = 0; i < Model.Count; i++)
+        {
+            var member = Model[i];
+
+            <li class="member">
+                <div class="memberInfo">
+                    <span class="name">@member.Name</span><i class="delete fa fa-remove"></i>
+                    <i class="startEdit fa fa-pencil" data-toggle="modal" data-target="#editClassmate"></i>
+                </div>
+            </li>
+        }
+    </ul>
+
+    <input id="newcomer" title="Name" type="text" />
+    <button id="add" class="btn btn-primary">
+        <i class="fa fa-plus-circle"></i>
+        Add new commer
+    </button>
+    <button id="clear" class="btn btn-secondary">
+        <i class="fa fa-cut"></i>
+        Clear
+    </button>
+    <p><img src="/images/steps.png" /></p>
+
+    <div class="weather">
+        <h2>Weather</h2>
+        <p>
+            Date: <div id="date">29.03.2021</div>
+            Temperature: <div id="temperature">10 C</div>
+            Summary: <div id="summary">Cool</div>
+
+
+        </p>
+    </div>
+</body>
+</html>

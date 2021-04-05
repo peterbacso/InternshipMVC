@@ -1,15 +1,13 @@
 using System.Collections.Generic;
 using InternshipMvc.Models;
-using InternshipMvc.WebAPI;
 
 namespace InternshipMvc.Services
 {
     public interface IInternshipService
     {
-        int AddMember(string memberName);
-
+        Intern AddMember(Intern member);
+        void EditMember(Intern intern);
         IList<Intern> GetMembers();
-
-        void RemoveMember(int id);
+        void RemoveMember(int index);
     }
 }

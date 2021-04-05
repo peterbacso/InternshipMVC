@@ -33,7 +33,7 @@ namespace InternshipMvc
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddControllersWithViews();
-            services.AddSingleton<IInternshipService, InternshipService>();
+            services.AddScoped<IInternshipService,InternshipDbService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "InternshipMvc API", Version = "v1" });
@@ -50,7 +50,6 @@ namespace InternshipMvc
         {
             if (env.IsDevelopment())
             {
-                app.UseMigrationsEndPoint();
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InternshipMvc.WebAPI v1"));

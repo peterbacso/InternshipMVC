@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InternshipMvc.Data;
+using InternshipMvc.Models;
 using System.Collections.Generic;
 using System.Linq;
 using InternshipMvc.Models;
@@ -15,20 +16,16 @@ namespace InternshipMvc.Services
             _internshipClass.Members.RemoveAt(index);
         }
 
-        public int AddMember(string memberName)
+        public Intern AddMember(Intern member)
         {
-            var maxId = _internshipClass.Members.Max(_ => _.Id);
-            var newId = maxId + 1;
+            _internshipClass.Members.Add(member);
+            return member;
+        }
 
-            var intern = new Intern()
-            {
-                Id = maxId + 1,
-                Name = memberName,
-                RegistrationDateTime = DateTime.Now,
-            };
+        public void EditMember(Intern intern)
+        {
+            _internshipClass.Members[intern.Id] = intern;
 
-            _internshipClass.Members.Add(intern);
-            return newId;
         }
 
         public IList<Intern> GetMembers()

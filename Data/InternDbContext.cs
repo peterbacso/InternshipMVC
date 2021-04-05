@@ -13,11 +13,12 @@ namespace InternshipMvc.Data
             : base(options)
         {
         }
+
         public DbSet<Intern> Interns { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Intern>().ToTable("Intern");
+            modelBuilder.Entity<Intern>().ToTable("Interns");
         }
     }
 }

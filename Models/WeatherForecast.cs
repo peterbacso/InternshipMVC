@@ -7,7 +7,7 @@ namespace InternshipMvc.WebAPI
     {
         public DateTime Date { get; set; }
 
-        public int TemperatureC => (int)(TemperatureK - 273.15);
+        public double TemperatureC => Math.Round(TemperatureK - 273.15);
 
         public string Summary { get; set; }
 

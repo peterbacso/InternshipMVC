@@ -1,37 +1,39 @@
-﻿using InternshipMvc.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using InternshipMvc.Models;
 using InternshipMVC.Models;
 
 namespace InternshipMvc.Services
 {
-    public class InternshipService
+    public class InternshipService : IInternshipService
     {
-        private readonly InternshipClass _internshipClass = new ();
-        private ApplicationDbContext db;
-
-        public InternshipService(ApplicationDbContext db)
-        {
-            this.db = db;
-        }
-
-        //public List<Intern> GetAllInterns()
-        //{
-        //    db.Find
-        //}
+        private readonly InternshipClass _internshipClass = new();
 
         public void RemoveMember(int index)
         {
             _internshipClass.Members.RemoveAt(index);
         }
 
-        public string AddMember(string member)
+        public int AddMember(string memberName)
         {
-            _internshipClass.Members.Add(member);
-            return member;
+            var maxId = _internshipClass.Members.Max(_ => _.Id);
+            var newId = maxId + 1;
+
+            var intern = new Intern()
+            {
+                Id = maxId + 1,
+                Name = memberName,
+                RegistrationDateTime = DateTime.Now,
+            };
+
+            _internshipClass.Members.Add(intern);
+            return newId;
         }
 
-        public InternshipClass GetClass()
+        public IList<Intern> GetMembers()
         {
-            return _internshipClass;
+            return _internshipClass.Members;
         }
     }
 }

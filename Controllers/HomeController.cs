@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using InternshipMvc.Data;
+using InternshipMvc.Services;
 using InternshipMVC.Models;
-using InternshipMVC.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -14,13 +10,13 @@ namespace InternMVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly InternshipService intershipService;
+        private readonly IInternshipService internshipService;
         private readonly InternDbContext db;
 
-        public HomeController(ILogger<HomeController> logger, InternshipService intershipService, InternDbContext db)
+        public HomeController(ILogger<HomeController> logger, IInternshipService internshipService, InternDbContext db)
         {
             _logger = logger;
-            this.intershipService = intershipService;
+            this.internshipService = internshipService;
             this.db = db;
         }
 
@@ -37,7 +33,7 @@ namespace InternMVC.Controllers
 
         public IActionResult Internship()
         {
-            return View(intershipService.GetClass());
+            return View(internshipService.GetMembers());
         }
 
         public IActionResult Weather()
@@ -46,21 +42,15 @@ namespace InternMVC.Controllers
         }
 
         [HttpDelete]
-        public void RemoveMember(int index)
+        public void RemoveMember(int id)
         {
-            intershipService.RemoveMember(index);
+            internshipService.RemoveMember(id);
         }
 
         [HttpGet]
-        public string AddMember(string member)
+        public int AddMember(string memberName)
         {
-            return intershipService.AddMember(member);
-        }
-
-        [HttpPut]
-        public void EditMember(int index, string name)
-        {
-            intershipService.EditMember(index, name);
+            return internshipService.AddMember(memberName);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

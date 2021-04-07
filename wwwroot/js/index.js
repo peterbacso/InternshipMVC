@@ -20,49 +20,56 @@ $(document).ready(function () {
         });
     })
 
-
     $("#clear").click(function () {
         $("#newcomer").val("");
     })
 
-    // Bind event to dynamically created element: https://makitweb.com/attach-event-to-dynamically-created-elements-with-jquery
-    $("#list").on("click", ".delete", function () {
-        var targetMemberTag = $(this).closest('li');
-        var index = targetMemberTag.index(targetMemberTag.parent());
+     $("#list").on("click", ".delete", function () {
+        var $li = $(this).closest('li');
+         var id = $li.attr('member-id');
+         console.log(id);
+
         $.ajax({
-            url: `/Home/RemoveMember/${index}`,
-            type: 'DELETE',
-            success: function () {
-                targetMemberTag.remove();
+            method: "DELETE",
+            url: `/Home/RemoveMember?id=${id}`,
+            success: function (data) {
+
+                $li.remove();
+
             },
-            error: function () {
-                alert(`Failed to delete member with index=${index}`);
-            }
-        })
+            error: function (data) {
+                alert(`Failed to remove`);
+            },
+        });
     })
 
     $("#list").on("click", ".startEdit", function () {
         var targetMemberTag = $(this).closest('li');
-        var index = targetMemberTag.index();
+        var serverIndex = targetMemberTag.attr('member-id');
+        var clientIndex = targetMemberTag.index();
         var currentName = targetMemberTag.find(".name").text();
-        $('#editClassmate').attr("memberIndex", index);
+        $('#editClassmate').attr("member-id", serverIndex);
+        $('#editClassmate').attr("memberIndex", clientIndex);
         $('#classmateName').val(currentName);
     })
 
     $("#editClassmate").on("click", "#submit", function () {
-        var name = $('#classmateName').val();
+        console.log('submit changes to server');
+
+        var newName = $('#classmateName').val();
+        var id = $('#editClassmate').attr("member-id");
         var index = $('#editClassmate').attr("memberIndex");
-        console.log(`/Home/EditMember?index=${index}&name=${name}`);
+
         $.ajax({
-            url: `/Home/EditMember?index=${index}&name=${name}`,
-            type: 'PUT',
-            success: function () {
-                location.reload();
+            url: `/Home/EditMember?index=${id}&name=${newName}`,
+            type: "PUT",
+            success: function (response) {
+                $('.name').eq(index).replaceWith(newName);
             },
-            error: function () {
-                alert(`Failed to replace member ${name}`);
+            error: function (data) {
+                alert(`Failed to update`);
             }
-        })
+        });
     })
 
     $("#editClassmate").on("click", "#cancel", function () {

@@ -46,9 +46,9 @@ namespace InternMVC.Controllers
         }
 
         [HttpDelete]
-        public void RemoveMember(int index)
+        public void RemoveMember(int id)
         {
-            internshipService.RemoveMember(index);
+            internshipService.RemoveMember(id);
         }
 
         [HttpGet]
@@ -66,6 +66,7 @@ namespace InternMVC.Controllers
             Intern intern = new Intern();
             intern.Id = index;
             intern.Name = name;
+            intern.RegistrationDateTime = DateTime.Now;
             internshipService.EditMember(intern);
         }
 

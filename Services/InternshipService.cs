@@ -11,9 +11,10 @@ namespace InternshipMvc.Services
     {
         private readonly InternshipClass _internshipClass = new();
 
-        public void RemoveMember(int index)
+        public void RemoveMember(int id)
         {
-            _internshipClass.Members.RemoveAt(index);
+            var itemToBeDeleted = _internshipClass.Members.Single(_ => _.Id == id);
+            _internshipClass.Members.Remove(itemToBeDeleted);
         }
 
         public Intern AddMember(Intern member)
@@ -24,8 +25,8 @@ namespace InternshipMvc.Services
 
         public void EditMember(Intern intern)
         {
-            _internshipClass.Members[intern.Id] = intern;
-
+            var itemToBeUpdated = _internshipClass.Members.Single(_ => _.Id == intern.Id);
+            itemToBeUpdated.Name = intern.Name;
         }
 
         public IList<Intern> GetMembers()

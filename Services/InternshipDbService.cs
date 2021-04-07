@@ -24,7 +24,8 @@ namespace InternshipMvc.Services
 
         public void EditMember(Intern intern)
         {
-            throw new NotImplementedException();
+            db.Interns.Update(intern);
+            db.SaveChanges();
         }
 
         public IList<Intern> GetMembers()
@@ -33,9 +34,11 @@ namespace InternshipMvc.Services
             return interns;
         }
 
-        public void RemoveMember(int index)
+        public void RemoveMember(int id)
         {
-            throw new NotImplementedException();
+            var intern = db.Find<Intern>(id);
+            db.Remove<Intern>(intern);
+            db.SaveChanges();
         }
     }
 }

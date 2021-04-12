@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using InternshipMvc.Models;
 
-namespace InternshipMVC.Models
+namespace InternshipMvc.Models
 {
     public class InternshipClass
     {

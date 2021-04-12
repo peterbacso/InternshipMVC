@@ -1,28 +1,41 @@
-﻿@model IList<InternshipMvc.Models.Intern>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Chat</title>
-</head>
-<body>
-    @section styles {
-        <!-- Read about this here https://fontawesome.com/icons?d=gallery&p=2 -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    }
-    @section scripts {
-        <script type="text/javascript" src="~/js/index.js"></script>
-    }
-    
-<h1>@ViewData["Title"]</h1>
-<p>Tomorrow</p>
-    <div class="weather">
-        <h2>Weather</h2>
-        <p>
-            Date: <div id="date">29.03.2021</div>
-            Temperature: <div id="temperature">10 C</div>
-            Summary: <div id="summary">Cool</div>
-        </p>
+﻿@model IList<InternshipMvc.Models.Message>
+<div class="container">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-2">User</div>
+        <div class="col-4"><input type="text" id="userInput" /></div>
     </div>
-</body>
-</html>
+    <div class="row">
+        <div class="col-2">Message</div>
+        <div class="col-4"><input type="text" id="messageInput" /></div>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-6">
+            <input type="button" id="sendButton" value="Send Message" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <hr />
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <ul id="messageList">
+            @for (var i = 0; i < Model.Count; i++)
+            {
+                var message = Model[i];
+
+                <li>
+                    @message.User says @message.MessageContent
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+@section scripts {
+    <script src="~/lib/microsoft-signalr/signalr.js"></script>
+    <script src="~/js/chat.js"></script>
+}

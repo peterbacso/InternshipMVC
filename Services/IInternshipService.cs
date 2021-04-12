@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using InternshipMvc.Hubs;
 using InternshipMvc.Models;
 
 namespace InternshipMvc.Services
@@ -9,5 +10,6 @@ namespace InternshipMvc.Services
         void EditMember(Intern intern);
         IList<Intern> GetMembers();
         void RemoveMember(int index);
+        void SubscribeToAddMember(IAddMemberSubscriber subscribers);
     }
 }

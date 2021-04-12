@@ -2,8 +2,7 @@
 using InternshipMvc.Models;
 using System.Collections.Generic;
 using System.Linq;
-using InternshipMvc.Models;
-using InternshipMVC.Models;
+using InternshipMvc.Hubs;
 
 namespace InternshipMvc.Services
 {
@@ -32,6 +31,11 @@ namespace InternshipMvc.Services
         public IList<Intern> GetMembers()
         {
             return _internshipClass.Members;
+        }
+
+        public void SubscribeToAddMember(IAddMemberSubscriber subscribers)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

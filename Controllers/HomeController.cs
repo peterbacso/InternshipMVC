@@ -8,19 +8,19 @@ using InternshipMvc.Models;
 using System;
 using System.Linq;
 
-namespace InternMVC.Controllers
+namespace InternshipMvc.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IInternshipService internshipService;
-        private readonly InternDbContext db;
+        private readonly MessageService messageService;
 
-        public HomeController(ILogger<HomeController> logger, IInternshipService internshipService, InternDbContext db)
+        public HomeController(ILogger<HomeController> logger, IInternshipService internshipService, MessageService messageService)
         {
             _logger = logger;
             this.internshipService = internshipService;
-            this.db = db;
+            this.messageService = messageService;
         }
 
         public IActionResult Index()
@@ -35,14 +35,12 @@ namespace InternMVC.Controllers
 
         public IActionResult Chat()
         {
-            return View();
+            return View(messageService.GetAllMessages());
         }
 
         public IActionResult Internship()
         {
-            var interns = db.Interns.ToList();
-            return View(interns);
-            //return View(internshipService.GetMembers());
+            return View(internshipService.GetMembers());
         }
 
         public IActionResult Weather()

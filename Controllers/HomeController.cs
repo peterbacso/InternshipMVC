@@ -33,6 +33,11 @@ namespace InternMVC.Controllers
             return View();
         }
 
+        public IActionResult Chat()
+        {
+            return View();
+        }
+
         public IActionResult Internship()
         {
             var interns = db.Interns.ToList();

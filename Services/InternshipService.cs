@@ -35,5 +35,11 @@ namespace InternshipMvc.Services
         {
             throw new System.NotImplementedException();
         }
+
+        public Intern GetMemberById(int id)
+        {
+            var member = _internshipClass.Members.Single(_ => _.Id == id);
+            return member;
+        }
     }
 }

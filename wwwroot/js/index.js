@@ -28,9 +28,7 @@ $(document).ready(function () {
             method: "DELETE",
             url: `/Home/RemoveMember?id=${id}`,
             success: function (data) {
-
                 $li.remove();
-
             },
             error: function (data) {
                 alert(`Failed to remove`);

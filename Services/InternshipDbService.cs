@@ -32,6 +32,11 @@ namespace InternshipMvc.Services
             db.SaveChanges();
         }
 
+        public Intern GetMemberById(int id)
+        {
+            return db.Find<Intern>(id);
+        }
+
         public IList<Intern> GetMembers()
         {
             var interns = db.Interns.ToList();
@@ -40,7 +45,7 @@ namespace InternshipMvc.Services
 
         public void RemoveMember(int id)
         {
-            var intern = db.Find<Intern>(id);
+            var intern = GetMemberById(id);
             db.Remove<Intern>(intern);
             db.SaveChanges();
         }

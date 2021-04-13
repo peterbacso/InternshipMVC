@@ -60,7 +60,7 @@ $(document).ready(function () {
             type: "PUT",
             url: `/api/Internship/${id}`,
             contentType: 'application/json',
-            data: JSON.stringify({ "id":`${id}`, "name": `${newName}` }),
+            data: JSON.stringify({ "name": `${newName}` }),
             success: function (response) {
                 $('.name').eq(index).replaceWith(newName);
             },

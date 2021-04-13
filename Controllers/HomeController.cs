@@ -7,6 +7,8 @@ using Microsoft.Extensions.Logging;
 using InternshipMvc.Models;
 using System;
 using System.Linq;
+using Microsoft.AspNetCore.SignalR;
+using InternshipMvc.Hubs;
 
 namespace InternshipMvc.Controllers
 {
@@ -14,12 +16,14 @@ namespace InternshipMvc.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IInternshipService internshipService;
+        private readonly IHubContext<MessageHub> hubContext;
         private readonly MessageService messageService;
 
-        public HomeController(ILogger<HomeController> logger, IInternshipService internshipService, MessageService messageService)
+        public HomeController(ILogger<HomeController> logger, IInternshipService internshipService, IHubContext<MessageHub> hubContext, MessageService messageService)
         {
             _logger = logger;
             this.internshipService = internshipService;
+            this.hubContext = hubContext;
             this.messageService = messageService;
         }
 
@@ -70,7 +74,9 @@ namespace InternshipMvc.Controllers
                 Name = memberName,
                 RegistrationDateTime = DateTime.Now,
             };
-            return internshipService.AddMember(intern);
+            var newMember = internshipService.AddMember(intern);
+            hubContext.Clients.All.SendAsync("AddMember", newMember.Name, newMember.Id);
+            return newMember;
         }
 
         [HttpPut]

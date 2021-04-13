@@ -35,7 +35,7 @@ namespace InternshipMvc
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddControllersWithViews();
             services.AddScoped<IInternshipService,InternshipDbService>();
-            services.AddScoped<MessageService>();
+            services.AddSingleton<MessageService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "InternshipMvc API", Version = "v1" });

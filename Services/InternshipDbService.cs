@@ -28,7 +28,10 @@ namespace InternshipMvc.Services
 
         public void EditMember(Intern intern)
         {
-            db.Interns.Update(intern);
+            var itemToBeUpdated = GetMemberById(intern.Id);
+            itemToBeUpdated.Name = intern.Name;
+            itemToBeUpdated.RegistrationDateTime = DateTime.Now;
+            db.Interns.Update(itemToBeUpdated);
             db.SaveChanges();
         }
 

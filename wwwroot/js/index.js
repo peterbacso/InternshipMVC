@@ -5,7 +5,10 @@ $(document).ready(function () {
         var newcomerName = $("#newcomer").val();
 
         $.ajax({
-            url: `/Home/AddMember?memberName=${newcomerName}`,
+            method: "POST",
+            url: `/api/Internship/`,
+            contentType: 'application/json',
+            data: JSON.stringify({ "name": `${newcomerName}` }),
             success: function (data) {
                 $("#newcomer").val("");
             },
@@ -26,7 +29,7 @@ $(document).ready(function () {
 
         $.ajax({
             method: "DELETE",
-            url: `/Home/RemoveMember?id=${id}`,
+            url: `/api/Internship/${id}`,
             success: function (data) {
                 $li.remove();
             },
@@ -54,8 +57,10 @@ $(document).ready(function () {
         var index = $('#editClassmate').attr("memberIndex");
 
         $.ajax({
-            url: `/Home/EditMember?index=${id}&name=${newName}`,
             type: "PUT",
+            url: `/api/Internship/${id}`,
+            contentType: 'application/json',
+            data: JSON.stringify({ "id":`${id}`, "name": `${newName}` }),
             success: function (response) {
                 $('.name').eq(index).replaceWith(newName);
             },

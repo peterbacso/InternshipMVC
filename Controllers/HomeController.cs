@@ -49,25 +49,40 @@ namespace InternshipMvc.Controllers
         }
 
         [HttpDelete]
-        public void RemoveMember(int id)
+        public void RemoveMember(int index)
         {
-            internshipService.RemoveMember(id);
+            var internsList = internshipService.GetMembers();
+            Intern intern = internsList.FirstOrDefault(intern => intern.Id == index);
+
+            if (intern == null)
+            {
+                return;
+            }
+
+            internshipService.RemoveMember(intern.Id);
         }
 
         [HttpGet]
         public Intern AddMember(string memberName)
         {
-            Intern intern = new Intern();
-            intern.Name = memberName;
-            intern.RegistrationDateTime = DateTime.Now;
+            Intern intern = new Intern
+            {
+                Name = memberName,
+                RegistrationDateTime = DateTime.Now,
+            };
             return internshipService.AddMember(intern);
         }
 
         [HttpPut]
         public void EditMember(int index, string name)
         {
-            Intern intern = new Intern();
-            intern.Id = index;
+            var internsList = internshipService.GetMembers();
+            Intern intern = internsList.FirstOrDefault(intern => intern.Id == index);
+            if (intern == null)
+            {
+                return;
+            }
+
             intern.Name = name;
             intern.RegistrationDateTime = DateTime.Now;
             internshipService.EditMember(intern);

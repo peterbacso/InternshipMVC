@@ -11,7 +11,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     }
     @section scripts {
+        <script src="~/lib/microsoft-signalr/signalr.js"></script>
         <script type="text/javascript" src="~/js/index.js"></script>
+        <script src="~/js/subscribeOnChanges.js"></script>
     }
     @section modalWindows {
         <!-- Modal -->
@@ -39,15 +41,15 @@
             </div>
         </div>
     }
-    
-<h1>@ViewData["Title"]</h1>
-<p>Tomorrow</p>
 
-<div class="weather">
-    <p>Date: <div id="date">29.03.1999 11:34</div></p>
-    <p>Temperature: <div id="temperature">temp</div></p>
-    <p>Summary: <div id="summary">summary</div></p>
-</div>
+    <h1>@ViewData["Title"]</h1>
+    <p>Tomorrow</p>
+
+    <div class="weather">
+        <p>Date: <div id="date">29.03.1999 11:34</div></p>
+        <p>Temperature: <div id="temperature">temp</div></p>
+        <p>Summary: <div id="summary">summary</div></p>
+    </div>
     <h1>Internship Landpage</h1>
     <p>Here is our classroom</p>
 

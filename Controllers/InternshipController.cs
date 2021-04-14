@@ -60,6 +60,7 @@ namespace InternshipMvc.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            hubContext.Clients.All.SendAsync("DeleteMember", id);
             internshipService.RemoveMember(id);
         }
     }

@@ -54,6 +54,7 @@ namespace InternshipMvc.Controllers
         {
             intern.Id = id;
             internshipService.EditMember(intern);
+            hubContext.Clients.All.SendAsync("EditMember", intern.Name, intern.Id);
         }
 
         // DELETE api/<InternshipController>/5

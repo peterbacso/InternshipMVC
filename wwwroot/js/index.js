@@ -58,9 +58,6 @@ $(document).ready(function () {
             url: `/api/Internship/${id}`,
             contentType: 'application/json',
             data: JSON.stringify({ "name": `${newName}` }),
-            success: function (response) {
-                $('.name').eq(index).replaceWith(newName);
-            },
             error: function (data) {
                 alert(`Failed to update`);
             }

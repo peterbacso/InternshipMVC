@@ -1,14 +1,14 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using InternshipMvc.Data;
+using InternshipMvc.Hubs;
+using InternshipMvc.Models;
 using InternshipMVC.Models;
 using InternshipMvc.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using InternshipMvc.Models;
-using System;
-using System.Linq;
 using Microsoft.AspNetCore.SignalR;
-using InternshipMvc.Hubs;
+using Microsoft.Extensions.Logging;
 
 namespace InternshipMvc.Controllers
 {

@@ -25,9 +25,11 @@ namespace InternshipMvc.WebAPI.Controllers
         {
             _logger = logger;
 
-            this.latitude = double.Parse(configuration["WeatherForecast:Latitude"], CultureInfo.InvariantCulture);
-            this.longtitude = double.Parse(configuration["WeatherForecast:Longtitude"], CultureInfo.InvariantCulture);
-            this.apiKey = configuration["WeatherForecast:ApiKey"];
+            
+
+            this.latitude = Environment.GetEnvironmentVariable("LATITUDE") != null ? double.Parse(Environment.GetEnvironmentVariable("LATITUDE"), CultureInfo.InvariantCulture) : double.Parse(configuration["WeatherForecast:Latitude"], CultureInfo.InvariantCulture);
+            this.longtitude = Environment.GetEnvironmentVariable("LONGTITUDE") != null ? double.Parse(Environment.GetEnvironmentVariable("LONGTITUDE"), CultureInfo.InvariantCulture) : double.Parse(configuration["WeatherForecast:Longtitude"], CultureInfo.InvariantCulture);
+            this.apiKey = Environment.GetEnvironmentVariable("API_KEY") != null ? Environment.GetEnvironmentVariable("API_KEY") : configuration["WeatherForecast:ApiKey"];
         }
 
         /// <summary>

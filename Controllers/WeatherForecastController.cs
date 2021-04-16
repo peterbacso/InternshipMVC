@@ -17,35 +17,37 @@ namespace InternshipMvc.WebAPI.Controllers
     {
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IConfiguration configuration;
+        private readonly double latitude;
+        private readonly double longtitude;
+        private readonly string apiKey;
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger, IConfiguration configuration)
         {
             _logger = logger;
-            this.configuration = configuration;
+
+            this.latitude = double.Parse(configuration["WeatherForecast:Latitude"], CultureInfo.InvariantCulture);
+            this.longtitude = double.Parse(configuration["WeatherForecast:Longtitude"], CultureInfo.InvariantCulture);
+            this.apiKey = configuration["WeatherForecast:ApiKey"];
         }
 
         /// <summary>
-        /// Getting Weather Forecast for 5 days.
+        /// Getting Weather Forecast for 5 days for default location.
         /// </summary>
         /// <returns>
         /// Enumerable of weatherForecast objects.
         /// </returns>
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public List<WeatherForecast> Get()
         {
-            var weatherForecasts = FetchWeatherForecasts();
+            var weatherForecasts = Get(this.latitude, this.longtitude);
 
             return weatherForecasts.GetRange(1, 5);
         }
 
         [HttpGet ("/forecast")]
-        public List<WeatherForecast> FetchWeatherForecasts()
+        public List<WeatherForecast> Get(double latitude, double longtitude)
         {
-            var lat = double.Parse(configuration["WeatherForecast:Latitude"], CultureInfo.InvariantCulture);
-            var lon = double.Parse(configuration["WeatherForecast:Longtitude"], CultureInfo.InvariantCulture);
-            var apiKey = configuration["WeatherForecast:ApiKey"];
-            var client = new RestClient($"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=hourly,minutely&appid={apiKey}");
+            var client = new RestClient($"https://api.openweathermap.org/data/2.5/onecall?lat={latitude}&lon={longtitude}&exclude=hourly,minutely&appid={apiKey}");
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             IRestResponse response = client.Execute(request);

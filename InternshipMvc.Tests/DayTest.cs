@@ -40,12 +40,11 @@ namespace InternshipMvc.Tests
             WeatherForecastController weatherForecastController = InstantiateWeatherForecastController();
 
             // Act
-            var weatherForecasts = weatherForecastController.FetchWeatherForecasts();
+            var weatherForecasts = weatherForecastController.Get();
             WeatherForecast weatherForecastForTomorrow = weatherForecasts[1];
 
             // Assert
-            Assert.Equal(285.39, weatherForecastForTomorrow.TemperatureK);
-
+            Assert.True(weatherForecastForTomorrow.TemperatureK > 0, "Kelvin temperature cannot be sub 0, please check openweathermap.org.");
         }
 
         [Fact]

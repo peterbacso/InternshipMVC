@@ -60,6 +60,12 @@ namespace InternshipMvc.WebAPI.Controllers
         {
             var json = JObject.Parse(content);
             var dailyArray = json["daily"];
+            if (dailyArray == null)
+            {
+                var codToken = json["cod"];
+                var messageToken = json["message"];
+                throw new Exception($"Weather API is not available. Please check Weather API: {messageToken}");
+            }
             var weatherForecasts = new List<WeatherForecast>();
             foreach (var item in dailyArray)
             {

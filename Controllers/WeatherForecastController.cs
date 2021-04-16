@@ -15,7 +15,6 @@ namespace InternshipMvc.WebAPI.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly double latitude;
         private readonly double longtitude;
@@ -25,11 +24,9 @@ namespace InternshipMvc.WebAPI.Controllers
         {
             _logger = logger;
 
-            
-
-            this.latitude = Environment.GetEnvironmentVariable("LATITUDE") != null ? double.Parse(Environment.GetEnvironmentVariable("LATITUDE"), CultureInfo.InvariantCulture) : double.Parse(configuration["WeatherForecast:Latitude"], CultureInfo.InvariantCulture);
-            this.longtitude = Environment.GetEnvironmentVariable("LONGTITUDE") != null ? double.Parse(Environment.GetEnvironmentVariable("LONGTITUDE"), CultureInfo.InvariantCulture) : double.Parse(configuration["WeatherForecast:Longtitude"], CultureInfo.InvariantCulture);
-            this.apiKey = Environment.GetEnvironmentVariable("API_KEY") != null ? Environment.GetEnvironmentVariable("API_KEY") : configuration["WeatherForecast:ApiKey"];
+            this.latitude = double.Parse(Environment.GetEnvironmentVariable("LATITUDE") ?? configuration["WeatherForecast:Latitude"], CultureInfo.InvariantCulture);
+            this.longtitude = double.Parse(Environment.GetEnvironmentVariable("LONGTITUDE") ?? configuration["WeatherForecast:Longtitude"], CultureInfo.InvariantCulture);
+            this.apiKey = Environment.GetEnvironmentVariable("API_KEY") ?? configuration["WeatherForecast:ApiKey"];
         }
 
         /// <summary>
@@ -50,7 +47,7 @@ namespace InternshipMvc.WebAPI.Controllers
         /// <param name="latitude"> It should be between -90 and 90. For example: latitude for Brasov is 45.75. </param>
         /// <param name="longtitude"> It should be between -180 and 180. For example: longitude for Brasov is 25.3333. </param>
         /// <returns> List of weatherForecast objects. </returns>
-        [HttpGet ("/forecast")]
+        [HttpGet("/forecast")]
         public List<WeatherForecast> Get(double latitude, double longtitude)
         {
             var client = new RestClient($"https://api.openweathermap.org/data/2.5/onecall?lat={latitude}&lon={longtitude}&exclude=hourly,minutely&appid={apiKey}");
@@ -72,6 +69,7 @@ namespace InternshipMvc.WebAPI.Controllers
                 var messageToken = json["message"];
                 throw new Exception($"Weather API is not available. Please check Weather API: {messageToken}");
             }
+
             var weatherForecasts = new List<WeatherForecast>();
             foreach (var item in dailyArray)
             {

@@ -12,5 +12,6 @@ namespace InternshipMvc.Services
         void RemoveMember(int index);
         void SubscribeToAddMember(IAddMemberSubscriber subscribers);
         Intern GetMemberById(int id);
+        void UpdateLocation(int id, int locationId);
     }
 }

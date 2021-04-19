@@ -1,6 +1,7 @@
 using InternshipMvc.Data;
 using InternshipMvc.Hubs;
 using InternshipMvc.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,18 +13,36 @@ namespace InternshipMvc.Services
     {
         private readonly InternDbContext db;
         private readonly List<IAddMemberSubscriber> subscribers;
+        private IConfiguration configuration;
+        private Location defaultLocation;
 
-        public InternshipDbService(InternDbContext db)
+        public InternshipDbService(InternDbContext db, IConfiguration configuration)
         {
             this.db = db;
             this.subscribers = new List<IAddMemberSubscriber>();
+            this.configuration = configuration;
         }
         public Intern AddMember(Intern member)
         {
+            if(member.Location == null)
+            {
+                member.Location = GetDefaultLocation();
+            }
             db.Interns.AddRange(member);
             db.SaveChanges();
-            subscribers.ForEach(subscriber => subscriber.OnAddMember(member));
+            //subscribers.ForEach(subscriber => subscriber.OnAddMember(member));
             return member;
+        }
+
+        private Location GetDefaultLocation()
+        {
+            if (defaultLocation == null)
+            {
+                var defaultLocationName = configuration["DefaultLocation"];
+                defaultLocation = db.Locations.Where(_ => _.Name == defaultLocationName).OrderBy(_ => _.Id).FirstOrDefault();
+            }
+
+            return defaultLocation;
         }
 
         public void EditMember(Intern intern)
@@ -37,7 +56,10 @@ namespace InternshipMvc.Services
 
         public Intern GetMemberById(int id)
         {
-            return db.Find<Intern>(id);
+            var intern = db.Find<Intern>(id);
+            db.Entry(intern).Reference(_ => _.Location).Load();
+            return intern;
+            //return db.Find<Intern>(id);
         }
 
         public IList<Intern> GetMembers()

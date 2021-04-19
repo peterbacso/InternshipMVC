@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json.Serialization;
 
 namespace InternshipMvc.Models
 {
@@ -10,6 +11,7 @@ namespace InternshipMvc.Models
 
         public DateTime RegistrationDateTime { get; set; }
 
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public Location Location { get; set; }
     }
 }

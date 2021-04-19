@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace InternshipMvc.Migrations
 {
     [DbContext(typeof(InternDbContext))]
-    [Migration("20210419085223_AdjustDbAfterSwitchingtoPostgres")]
-    partial class AdjustDbAfterSwitchingtoPostgres
+    [Migration("20210419085926_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

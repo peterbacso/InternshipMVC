@@ -1,5 +1,6 @@
 using InternshipMvc.Data;
 using InternshipMvc.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -9,7 +10,7 @@ namespace InternshipMvc.Data
     {
         public static void Initialize(InternDbContext context)
         {
-            context.Database.EnsureCreated();
+            context.Database.Migrate();
 
             if (context.Interns.Any())
             {

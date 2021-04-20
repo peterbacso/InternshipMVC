@@ -28,15 +28,15 @@ namespace InternshipMvc.Migrations
                 name: "InternProject",
                 columns: table => new
                 {
-                    ProjectsId = table.Column<int>(type: "integer", nullable: false),
-                    TeamId = table.Column<int>(type: "integer", nullable: false)
+                    InternsId = table.Column<int>(type: "integer", nullable: false),
+                    ProjectsId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InternProject", x => new { x.ProjectsId, x.TeamId });
+                    table.PrimaryKey("PK_InternProject", x => new { x.InternsId, x.ProjectsId });
                     table.ForeignKey(
-                        name: "FK_InternProject_Interns_TeamId",
-                        column: x => x.TeamId,
+                        name: "FK_InternProject_Interns_InternsId",
+                        column: x => x.InternsId,
                         principalTable: "Interns",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -49,9 +49,9 @@ namespace InternshipMvc.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_InternProject_TeamId",
+                name: "IX_InternProject_ProjectsId",
                 table: "InternProject",
-                column: "TeamId");
+                column: "ProjectsId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

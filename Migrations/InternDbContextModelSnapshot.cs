@@ -21,15 +21,15 @@ namespace InternshipMvc.Migrations
 
             modelBuilder.Entity("InternProject", b =>
                 {
+                    b.Property<int>("InternsId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("ProjectsId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("TeamId")
-                        .HasColumnType("integer");
+                    b.HasKey("InternsId", "ProjectsId");
 
-                    b.HasKey("ProjectsId", "TeamId");
-
-                    b.HasIndex("TeamId");
+                    b.HasIndex("ProjectsId");
 
                     b.ToTable("InternProject");
                 });
@@ -107,15 +107,15 @@ namespace InternshipMvc.Migrations
 
             modelBuilder.Entity("InternProject", b =>
                 {
-                    b.HasOne("InternshipMvc.Models.Project", null)
+                    b.HasOne("InternshipMvc.Models.Intern", null)
                         .WithMany()
-                        .HasForeignKey("ProjectsId")
+                        .HasForeignKey("InternsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("InternshipMvc.Models.Intern", null)
+                    b.HasOne("InternshipMvc.Models.Project", null)
                         .WithMany()
-                        .HasForeignKey("TeamId")
+                        .HasForeignKey("ProjectsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

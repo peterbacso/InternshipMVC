@@ -17,6 +17,6 @@ namespace InternshipMvc.Models
 
         public string Url { get; set; }
 
-        public ICollection<Intern> Team { get; set; }
+        public ICollection<Intern> Interns { get; set; }
     }
 }

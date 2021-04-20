@@ -14,7 +14,6 @@ namespace InternshipMvc.Data
         {
             context.Database.Migrate();
 
-
             if (!context.Locations.Any())
             {
 
